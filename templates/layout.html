@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM管理系统</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.3.7/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="icon" href="{% static 'imgs/layout/luffy-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.css' %}">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="{% static 'imgs/layout/logo.svg' %}" alt="" style="float: left;margin-top:5px;margin-right: 5px ">
+            <a class="navbar-brand" href="#">CRM管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="navbar-right">
+{#                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"#}
+{#                        aria-haspopup="true" aria-expanded="false">#}
+{#                    Action <span class="caret"></span>#}
+{#                </button>#}
+                <img class="img-circle" height="45px" style="margin-top:2.5px;margin-right: 5px " src="{% static 'imgs/layout/default.png'%}" alt="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                <ul class="dropdown-menu">
+                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">修改密码</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">注销</a></li>
+                </ul>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">任务 <i class="fa fa-bell-o" aria-hidden="true"></i>&nbsp;<span class="badge">4</span></a>
+                </li>
+                <li><a href="#">消息 <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;<span class="badge">4</span></a>
+                </li>
+                <li><a href="#">通知 <i class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;<span class="badge">6</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="{% url 'customer_list' %}">客户列表</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Export</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jQuery.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-3.3.7/js/bootstrap.js' %}"></script>
+{% block js %}
+
+{% endblock %}
+
+
+</body>
+</html>
