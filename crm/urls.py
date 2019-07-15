@@ -17,6 +17,13 @@ from django.urls import path
 from crm import views
 urlpatterns = [
     path('customer_list/',views.customer_list,name='customer_list'),
-    # path('ceshi/',views.ceshi,name='ceshi'),
+    #增加客户
+    # path('customer/add/',views.add_customer,name='add_customer'),
+    # #编辑客户
+    # path('customer/edit/<int:nid>/',views.edit_customer,name='edit_customer'),
+path('customer/add/',views.customer,name='add_customer'),
+    #编辑客户
+    path('customer/edit/<int:nid>/',views.customer,name='edit_customer'),
+
 
 ]

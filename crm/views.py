@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.contrib import auth
-from crm.forms import RegForm
+from crm.forms import RegForm,CustomerForm
 from crm import models
 from utils.pagination import Pagination
 
@@ -36,10 +36,41 @@ def reg(request):
 #展示客户列表
 def customer_list(request):
     all_customer = models.Customer.objects.all()
-    # all_count =all_customer.count()
+    all_count =all_customer.count()
     # print(all_count)
-    page = Pagination(request,all_customer.count(),'/crm/customer_list/')
-    return render(request,'crm/customer_list.html',{'all_customer':all_customer[page.start,page.end],"pigination":page.show_li})
+    page = Pagination(request.GET.get('page'),'/crm/customer_list/',all_count)
+    return render(request,'crm/customer_list.html',{'all_customer':all_customer[page.start:page.end],"html_str":page.show_li})
 
-
-
+#增加客户
+# def add_customer(request):
+#     form_obj = CustomerForm()
+#     if request.method =="POST":
+#         form_obj =CustomerForm(request.POST)
+#         #d对数据进行校验
+#         if form_obj.is_valid():
+#             form_obj.save()
+#             return redirect(reverse('customer_list'))
+#
+#     return  render(request,'crm/add_customer.html',{"form_obj":form_obj})
+#
+# #编辑客户
+# def edit_customer(request,nid):
+#     #根据id查出所需要编辑的客户
+#     obj = models.Customer.objects.filter(id=nid).first()
+#     form_obj = CustomerForm(instance=obj)#实例instance 把对象的内容实例
+#     if request.method=="POST":
+#         form_obj = CustomerForm(request.POST,instance=obj)
+#         if form_obj.is_valid():
+#             form_obj.save()
+#             return redirect(reverse(customer_list))
+#     return render(request,'crm/edit_customer.html',{'form_obj':form_obj})
+#新增编辑客户
+def customer(request,nid=None):
+    obj = models.Customer.objects.filter(id=nid).first()
+    form_obj = CustomerForm(instance=obj)#实例instance 把对象的内容实例
+    if request.method=="POST":
+        form_obj = CustomerForm(request.POST,instance=obj)
+        if form_obj.is_valid():
+            form_obj.save()
+            return redirect(reverse(customer_list))
+    return render(request,'crm/customer.html',{'form_obj':form_obj,'nid':nid})
