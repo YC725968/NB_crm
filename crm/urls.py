@@ -16,12 +16,18 @@ Including another URLconf
 from django.urls import path
 from crm import views
 urlpatterns = [
-    path('customer_list/',views.customer_list,name='customer_list'),
+
+    #公户
+    path('customer_list/',views.CustomerList.as_view(),name='customer_list'),
+    # path('customer_list/',views.customer_list,name='customer_list'),
+    #私户
+    path('my_customer/',views.CustomerList.as_view(),name='my_customer'),
+    # path('my_customer/',views.customer_list,name='my_customer'),
     #增加客户
     # path('customer/add/',views.add_customer,name='add_customer'),
     # #编辑客户
     # path('customer/edit/<int:nid>/',views.edit_customer,name='edit_customer'),
-path('customer/add/',views.customer,name='add_customer'),
+    path('customer/add/',views.customer,name='add_customer'),
     #编辑客户
     path('customer/edit/<int:nid>/',views.customer,name='edit_customer'),
 

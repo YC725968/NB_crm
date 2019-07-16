@@ -13,10 +13,25 @@
         <!-- Default panel contents -->
         <div class="panel-heading">Panel heading</div>
         <a href="{% url 'add_customer' %}" class="btn btn-primary btn-sm">添加</a>
-
-        <table class="table table-condensed table-hover table-bordered">
+        <div>
+            <form action="" class="form-inline pull-right">
+                <input type="text" name="query" class="form-control">
+                <button class="btn btn-sm btn-primary">搜索 <i class="fa fa-search"></i> </button>
+            </form>
+        </div>
+        <form action="" method="post" class="form-inline">
+            {% csrf_token %}
+            <select name="action" class="form-control"  >
+                <option value="">请选择</option>
+                <option value="multi_apply">放入私户</option>
+                <option value="multi_pub">放入公户</option>
+                <option value="multi_delte">删除</option>
+            </select>
+            <button class="btn btn-success btn-sm">提交</button>
+            <table class="table table-condensed table-hover table-bordered">
             <thead>
             <tr>
+                <th>请选择</th>
                 <th>序号</th>
                 <th>QQ</th>
 {#                <th>QQ昵称</th>#}
@@ -38,6 +53,7 @@
 
             {% for customer in all_customer %}
                 <tr>
+                    <td><input type="checkbox" name="id" value="{{ customer.id }}"></td>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ customer.qq }}</td>
 {#                    <td>{{ customer.qq_name|default:'暂无' }}</td>#}
@@ -62,6 +78,9 @@
 
             </tbody>
         </table>
+        </form>
+
+
         <div style="text-align: center">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
